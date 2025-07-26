@@ -82,9 +82,9 @@ const LoginForm = () => {
               className="absolute inset-y-0 right-0 px-2 mt-1 flex items-center text-[#9D9EA1]"
             >
               {showPassword ? (
-                <FaEyeSlash className="w-3 h-3" />
-              ) : (
                 <FaEye className="w-3 h-3" />
+              ) : (
+                <FaEyeSlash className="w-3 h-3" />
               )}
             </button>
           </div>
