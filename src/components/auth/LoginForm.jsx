@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import Logo from "../assets/images/Logo.svg";
+import Logo from "../../assets/images/Logo.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginForm = () => {
@@ -103,8 +103,12 @@ const LoginForm = () => {
             </Link>
           </span>
 
-          <Link to="/forgot-password" className="font-medium  text-white">
-            Lupa Password?
+          <Link
+            to="#"
+            onClick={() => alert("Lupa kata sandi belum aktif")}
+            className="font-medium  text-white"
+          >
+            Lupa kata sandi?
           </Link>
         </div>
 

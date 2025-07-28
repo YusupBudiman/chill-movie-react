@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import Logo from "../assets/images/Logo.svg";
+import Logo from "../../assets/images/Logo.svg";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
