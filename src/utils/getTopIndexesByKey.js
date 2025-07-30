@@ -1,4 +1,4 @@
-const getTopIndexesByKey = (data, key, topN = 3) => {
+const getTopIndexesByKey = (data, key, topN = 10) => {
   return data
     .map((item, index) => ({
       index,

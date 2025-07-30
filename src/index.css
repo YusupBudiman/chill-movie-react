@@ -4,9 +4,3 @@ body {
   font-family: "Lato", sans-serif;
   background: #181a1c;
 }
-
-@layer utilities {
-  .text-hover-blue {
-    @apply text-white hover:text-blue-500;
-  }
-}

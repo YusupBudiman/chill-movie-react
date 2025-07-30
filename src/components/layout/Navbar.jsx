@@ -40,20 +40,20 @@ const Navbar = () => {
           <div className="absolute top-[34px] right-0 z-150 flex flex-col w-[113px] text-[10px] bg-[#181a1c] rounded-sm">
             <Link
               to="#"
-              className="flex gap-1 items-center text-white hover:text-[#3254FF] transition-colors px-3 py-2"
+              className="flex gap-1 items-center text-white hover:text-[#3254FF] active:text-[#243FDB] transition-colors px-3 py-2"
             >
               <FaUser className="w-4 h-4 hover:text-[#3254FF]" />
               Profile Saya
             </Link>
             <Link
               to="#"
-              className="flex gap-1 items-center text-white hover:text-[#3254FF] transition-colors px-3 py-2"
+              className="flex gap-1 items-center text-white hover:text-[#3254FF] active:text-[#243FDB] transition-colors px-3 py-2"
             >
               <FaStar className="w-4 h-4" /> Ubah Premium
             </Link>
             <Link
-              to="#"
-              className="flex gap-1 items-center text-white hover:text-[#3254FF] transition-colors px-3 py-2"
+              to="/"
+              className="flex gap-1 items-center text-white hover:text-[#3254FF] active:text-[#243FDB] transition-colors px-3 py-2"
             >
               <IoIosLogIn className="w-4 h-4" />
               Keluar
