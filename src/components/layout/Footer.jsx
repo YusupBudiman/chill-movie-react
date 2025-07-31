@@ -6,8 +6,8 @@ import { genres, bantuan } from "../../data/genres";
 const Footer = () => {
   return (
     <footer
-      className="flex flex-col min-h-[193px] bg-[#181A1C] p-5 border-t-[1px] border-[#E7E3FC3B] items-left text-white 
-    md:flex-row md:px-20 md:py-15 md:justify-between md:items-center"
+      className="flex flex-col mt-10 min-h-[193px] bg-[#181A1C] p-5 border-t-[1px] border-[#E7E3FC3B] items-left text-white 
+    md:flex-row md:mt-15 md:px-20 md:py-15 md:justify-between md:items-center"
     >
       {/* Footer-Left */}
       <div className="footer-left flex flex-col mb-10 gap-4 md:mb-0 md:gap-6.5">
