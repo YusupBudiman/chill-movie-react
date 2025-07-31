@@ -11,23 +11,23 @@ const Home = () => {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#181a1c] text-white">
-        <section className="p-4 mt-15 mb-5">
+      <main className="min-h-screen bg-[#181a1c] text-white ">
+        <section className="p-4 mt-15 mb-5 md:px-20 md:mt-24">
           <h3 className="text-xl font-bold mb-5">Melanjutkan Tonton Film</h3>
           <LandscapeCard posters={posters} topIndexes={topIndexes} />
         </section>
 
-        <section className="p-4 mb-5">
-          <h3 className="text-xl font-bold mb-5">Rekomendasi Untukmu</h3>
+        <section className="p-4 mb-5 md:px-20 ">
+          <h3 className="text-xl font-bold mb-5 ">Rekomendasi Untukmu</h3>
           <PortraitCard posters={posters} topIndexes={topIndexes} />
         </section>
 
-        <section className="p-4 mb-5">
+        <section className="p-4 mb-5 md:px-20 ">
           <h3 className="text-xl font-bold mb-5">Film Trendingu</h3>
           <PortraitCard posters={posters} topIndexes={topIndexes} />
         </section>
 
-        <section className="p-4 mb-5">
+        <section className="p-4 mb-5 md:px-20 ">
           <h3 className="text-xl font-bold mb-5">Rilis Baru</h3>
           <PortraitCard posters={posters} topIndexes={topIndexes} />
         </section>

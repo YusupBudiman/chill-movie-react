@@ -9,13 +9,13 @@ const Hero = () => {
   return (
     <section
       className="relative top-14  w-full h-[225px] bg-cover bg-center text-white flex items-end justify-center
-      md:h-[587px]"
+      md:h-[587px] md:top-23.5"
       style={{
         backgroundImage: `url(${BgHero})`,
       }}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-[#00000000]  to-[#181A1C]"></div>
-      <div className="relative w-[320px] z-10 lg:w-[1280px]">
+      <div className="relative w-full px-5 md:px-20 z-10">
         <h1 className="text-2xl md:text-6xl font-bold mb-3 lg:mb-5">
           Duty After School
         </h1>
