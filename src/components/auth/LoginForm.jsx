@@ -15,7 +15,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.Username && form.password) {
-      navigate("/home");
+      navigate("/home/series");
     } else {
       alert("Username dan password harus diisi");
     }
