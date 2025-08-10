@@ -2,8 +2,18 @@
   "users": [
     {
       "id": "40dc",
-      "Username": "yusup",
+      "username": "yusup",
       "password": "12345"
+    },
+    {
+      "id": "742b",
+      "username": "andika",
+      "password": "123"
+    },
+    {
+      "id": "4b3c",
+      "username": "cici",
+      "password": "123"
     }
   ]
 }

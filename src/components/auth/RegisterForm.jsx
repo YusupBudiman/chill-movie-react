@@ -8,7 +8,7 @@ import api from "../../api";
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
-    Username: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
@@ -21,9 +21,9 @@ const RegisterForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { Username, password, confirmPassword } = form;
+    const { username, password, confirmPassword } = form;
 
-    if (!Username || !password || !confirmPassword) {
+    if (!username || !password || !confirmPassword) {
       return alert("Username, kata sandi, dan konfirmasi harus diisi");
     }
 
@@ -31,7 +31,7 @@ const RegisterForm = () => {
       return alert("Kata sandi anda tidak cocok");
     }
     try {
-      await api.post("/users", { Username, password });
+      await api.post("/users", { username, password });
       alert("pendaftaran berhasil!");
       navigate("/");
     } catch (err) {
@@ -72,9 +72,9 @@ const RegisterForm = () => {
           </label>
           <input
             type="Username"
-            id="Username"
-            name="Username"
-            value={form.Username}
+            id="username"
+            name="username"
+            value={form.username}
             onChange={handleChange}
             required
             autoComplete="Username"

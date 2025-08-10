@@ -11,17 +11,25 @@ const ProfileForm = () => {
     password: "",
   });
 
-  // Ambil data user dari localStorage saat komponen mount
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      setForm({
-        username: userData.Username || "",
-        email: userData.email || "",
-        password: userData.password || "",
-      });
-    }
+    const loadUser = () => {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) {
+        const userData = JSON.parse(storedUser);
+        setForm({
+          username: userData.username || "",
+          email: userData.email || "",
+          password: userData.password || "",
+        });
+      }
+    };
+
+    loadUser();
+    window.addEventListener("storage", loadUser);
+
+    return () => {
+      window.removeEventListener("storage", loadUser);
+    };
   }, []);
 
   // Handle perubahan input
