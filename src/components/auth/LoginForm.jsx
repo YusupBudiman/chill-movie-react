@@ -18,7 +18,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     if (!form.username || !form.password) {
-      console.log("Username dan password harus diisi");
+      alert("Username dan password harus diisi");
       return;
     }
 
@@ -26,6 +26,7 @@ const LoginForm = () => {
       const res = await api.get("/users", {
         params: {
           username: form.username,
+          email: form.email,
           password: form.password,
         },
       });
@@ -34,11 +35,11 @@ const LoginForm = () => {
         localStorage.setItem("user", JSON.stringify(res.data[0]));
         navigate("/home/series");
       } else {
-        console.log("Username atau kata sandi anda salah!");
+        alert("Username atau kata sandi anda salah!");
       }
     } catch (err) {
       console.error(err);
-      console.log("Gagal login");
+      alert("Gagal login");
     }
   };
 

@@ -115,7 +115,7 @@ const ProfileForm = () => {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="email"
-                  className="text-base font-medium"
+                  className="text-base font-medium text-[#9D9EA1]"
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ const ProfileForm = () => {
                   value={form.password}
                   onChange={handleChange}
                   placeholder="password"
-                  className="text-base font-medium"
+                  className="text-base font-medium "
                 />
               </div>
               <button>

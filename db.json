@@ -3,16 +3,19 @@
     {
       "id": "40dc",
       "username": "yusup",
+      "email": "yusupbudiman3@gmail.com",
       "password": "12345"
     },
     {
       "id": "742b",
       "username": "andika",
+      "email": "andika@gmail.com",
       "password": "123"
     },
     {
       "id": "4b3c",
       "username": "cici",
+      "email": "cici@gmail.com",
       "password": "123"
     }
   ]
