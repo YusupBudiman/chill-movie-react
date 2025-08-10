@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Logo from "../../assets/images/Logo.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import api from "../../api";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -12,12 +13,25 @@ const LoginForm = () => {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (form.Username && form.password) {
-      navigate("/home/series");
-    } else {
-      alert("Username dan password harus diisi");
+
+    try {
+      const res = await api.get("/users", {
+        params: {
+          Username: form.username,
+          password: form.password,
+        },
+      });
+      if (res.data.length > 0) {
+        localStorage.setItem("user", JSON.stringify(res.data[0]));
+        navigate("/home/series");
+      } else {
+        alert("Username atau kata sandi anda salah!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Gagal login");
     }
   };
 
@@ -73,7 +87,7 @@ const LoginForm = () => {
             htmlFor="password"
             className="block text-[10px] font-medium md:text-lg "
           >
-            Password
+            Kata Sandi
           </label>
           <div className="relative">
             <input

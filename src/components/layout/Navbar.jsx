@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/logo-chill.png";
 import User from "../../assets/images/avatar.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -8,10 +8,16 @@ import { FaStar, FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const navLinkClass = ({ isActive }) =>
-    isActive
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  const navButtonClass = (path) =>
+    location.pathname === path
       ? "text-[#3254FF] font-semibold"
       : "hover:text-[#3254FF] transition-colors";
 
@@ -22,9 +28,11 @@ const Navbar = () => {
     >
       {/* Kiri: Logo dan Menu */}
       <nav className="flex gap-3 justify-center items-center md:text-lg md:gap-20">
-        <Link
-          to={location.pathname} // tetap di halaman yang sedang aktif
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        <button
+          onClick={() => {
+            navigate(location.pathname);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
           className="flex items-baseline gap-1"
         >
           <img
@@ -33,19 +41,28 @@ const Navbar = () => {
             className="w-5 h-4.5 md:w-[29px] md:h-6.5"
           />
           <span className="hidden chill-font text-[32px] md:block">CHILL</span>
-        </Link>
+        </button>
 
-        <NavLink to="/home/series" className={navLinkClass}>
+        <button
+          onClick={() => navigate("/home/series")}
+          className={navButtonClass("/home/series")}
+        >
           Series
-        </NavLink>
+        </button>
 
-        <NavLink to="/home/film" className={navLinkClass}>
+        <button
+          onClick={() => navigate("/home/film")}
+          className={navButtonClass("/home/film")}
+        >
           Film
-        </NavLink>
+        </button>
 
-        <NavLink to="/home/mylist" className={navLinkClass}>
+        <button
+          onClick={() => navigate("/home/mylist")}
+          className={navButtonClass("/home/mylist")}
+        >
           Daftar Saya
-        </NavLink>
+        </button>
       </nav>
 
       {/* Kanan: Avatar */}
@@ -67,29 +84,29 @@ const Navbar = () => {
             className="absolute py-1 top-[34px] right-0 z-150 flex flex-col w-[113px] text-[10px] bg-[#181a1c] rounded-sm
             md:w-[156px] text-sm md:top-16 md:right-auto"
           >
-            <Link
-              to="#"
+            <button
+              onClick={() => navigate("/home/myprofile")}
               className="flex gap-1 items-center text-white hover:text-[#3254FF] transition-colors px-3 py-2"
             >
               <FaUser className="w-4 h-4 md:w-4.5 md:h-4.5" />
               Profile Saya
-            </Link>
+            </button>
 
-            <Link
-              to="#"
+            <button
+              onClick={() => navigate("/home/premium")}
               className="flex gap-1 items-center text-white hover:text-[#3254FF] transition-colors px-3 py-2"
             >
               <FaStar className="w-4 h-4 md:w-4.5 md:h-4.5" />
               Ubah Premium
-            </Link>
+            </button>
 
-            <Link
-              to="/"
+            <button
+              onClick={handleLogout}
               className="flex gap-1 items-center text-white hover:text-[#3254FF] transition-colors px-3 py-2"
             >
               <IoIosLogIn className="w-4 h-4 md:w-4.5 md:h-4.5" />
               Keluar
-            </Link>
+            </button>
           </div>
         )}
       </div>

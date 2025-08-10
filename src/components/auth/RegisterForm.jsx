@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Logo from "../../assets/images/Logo.svg";
+import api from "../../api";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
-
   const [form, setForm] = useState({
     Username: "",
     password: "",
@@ -15,12 +15,11 @@ const RegisterForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { Username, password, confirmPassword } = form;
 
@@ -31,13 +30,14 @@ const RegisterForm = () => {
     if (password !== confirmPassword) {
       return alert("Kata sandi anda tidak cocok");
     }
-
-    setSuccessMessage("Pendaftaran berhasil!");
-    // Simulate a successful registration
-    setTimeout(() => {
-      setSuccessMessage("");
+    try {
+      await api.post("/users", { Username, password });
+      alert("pendaftaran berhasil!");
       navigate("/");
-    }, 1200);
+    } catch (err) {
+      console.error(err);
+      alert("Gagal mendaftar");
+    }
   };
 
   return (
@@ -54,13 +54,6 @@ const RegisterForm = () => {
         </h1>
         <p className="text-[10px] font-light md:text-base">Selamat datang!</p>
       </div>
-
-      {/* Alert Berhasil */}
-      {successMessage && (
-        <div className="mb-4 p-2 text-xs text-white  rounded-lg text-center">
-          {successMessage}
-        </div>
-      )}
 
       {/* Form Daftar */}
       <form

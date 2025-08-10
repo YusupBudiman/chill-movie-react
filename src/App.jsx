@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Series from "./pages/Series";
 import Film from "./pages/Film";
 import MyList from "./pages/MyList";
+import MyProfile from "./pages/MyProfile";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="series" element={<Series />} />
           <Route path="film" element={<Film />} />
           <Route path="mylist" element={<MyList />} />
+          <Route path="myprofile" element={<MyProfile />} />
         </Route>
       </Routes>
     </Router>
