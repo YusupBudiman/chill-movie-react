@@ -17,6 +17,11 @@
       "username": "cici",
       "email": "cici@gmail.com",
       "password": "123"
+    },
+    {
+      "id": "45bb",
+      "username": "nana",
+      "password": "123"
     }
   ]
 }
