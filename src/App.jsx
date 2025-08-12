@@ -9,7 +9,7 @@ import MyProfile from "./pages/MyProfile";
 
 function App() {
   return (
-    <Router basename="/chill-movie-react/">
+    <Router>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
