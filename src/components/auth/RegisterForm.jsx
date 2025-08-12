@@ -85,12 +85,12 @@ const RegisterForm = () => {
         </div>
 
         {/* Input Password */}
-        <div className="flex flex-col mb-1.5 gap-0.75 md:gap-1.5 md:mb-[37px]">
+        <div className="flex flex-col mb-5 gap-0.75 md:gap-1.5 md:mb-[37px]">
           <label
             htmlFor="password"
             className="block text-[10px] font-medium md:text-lg "
           >
-            Password
+            Kata Sandi
           </label>
           <div className="relative">
             <input
