@@ -9,8 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "json-server --watch db.json --port 5000",
-    "deploy": "gh-pages -d dist",
-    "homepage": "https://github.com/YusupBudiman/chill-movie-react.git"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
