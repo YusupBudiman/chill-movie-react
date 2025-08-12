@@ -26,7 +26,6 @@ const LoginForm = () => {
       const res = await api.get("/users", {
         params: {
           username: form.username,
-          email: form.email,
           password: form.password,
         },
       });
