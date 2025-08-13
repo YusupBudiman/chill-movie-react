@@ -23,22 +23,20 @@ const LoginForm = () => {
     }
 
     try {
-      const res = await api.get("/users/login", {
-        params: {
-          username: form.username,
-          password: form.password,
-        },
+      const res = await api.post("/users/login", {
+        username: form.username,
+        password: form.password,
       });
 
-      if (res.data.length > 0) {
-        localStorage.setItem("user", JSON.stringify(res.data[0]));
+      if (res.data.user) {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         navigate("/home/series");
       } else {
         alert("Username atau kata sandi anda salah!");
       }
     } catch (err) {
       console.error(err);
-      alert("Gagal login");
+      alert(err.response?.data?.message || "Gagal login");
     }
   };
 
