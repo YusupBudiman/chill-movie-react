@@ -23,7 +23,7 @@ const LoginForm = () => {
     }
 
     try {
-      const res = await api.get("/api/users/login", {
+      const res = await api.get("/users/login", {
         params: {
           username: form.username,
           password: form.password,

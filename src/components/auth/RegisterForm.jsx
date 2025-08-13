@@ -31,7 +31,7 @@ const RegisterForm = () => {
       return alert("Kata sandi anda tidak cocok");
     }
     try {
-      await api.post("/api/users/register", { username, password });
+      await api.post("/users/register", { username, password });
       alert("pendaftaran berhasil!");
       navigate("/");
     } catch (err) {
