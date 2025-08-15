@@ -6,6 +6,8 @@ import Series from "./pages/Series";
 import Film from "./pages/Film";
 import MyList from "./pages/MyList";
 import MyProfile from "./pages/MyProfile";
+import PremiumPackage from "./pages/PremiumPackage";
+import Payment from "./pages/Payment";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="film" element={<Film />} />
           <Route path="mylist" element={<MyList />} />
           <Route path="myprofile" element={<MyProfile />} />
+          <Route path="premium" element={<PremiumPackage />} />
+          <Route path="payment" element={<Payment />} />
         </Route>
       </Routes>
     </Router>
