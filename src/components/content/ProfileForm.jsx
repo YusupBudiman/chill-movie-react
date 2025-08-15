@@ -56,7 +56,10 @@ const ProfileForm = () => {
               </div>
             </div>
             <div className="flex justify-end">
-              <button className="w-[154px] px-5.5 py-1.5 bg-[#2F3334] font-bold text-xs rounded-full">
+              <button
+                className="w-[154px] px-5.5 py-1.5 bg-[#2F3334] font-bold text-xs rounded-full"
+                onClick={() => alert("fitur belum tersedia!")}
+              >
                 Mulai Berlangganan
               </button>
             </div>

@@ -119,7 +119,7 @@ const LoginForm = () => {
 
           <Link
             to="#"
-            onClick={() => console.log("Lupa kata sandi belum aktif")}
+            onClick={() => alert("fitur belum tersedia!")}
             className="font-medium text-white"
           >
             Lupa kata sandi?
@@ -140,7 +140,7 @@ const LoginForm = () => {
 
           <button
             type="button"
-            onClick={() => console.log("Login Google belum aktif")}
+            onClick={() => alert("fitur belum tersedia!")}
             className="flex justify-center items-center gap-3 w-full h-7 py-2 px-3 border border-[#E7E3FC3B] bg-transparent text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800 transition-all duration-200 ease-in-out
             md:h-[50px] md:py-3.5 md:px-5 md:rounded-3xl"
           >
