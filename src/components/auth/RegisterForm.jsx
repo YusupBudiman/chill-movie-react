@@ -23,8 +23,9 @@ const RegisterForm = () => {
     e.preventDefault();
     const { username, password, confirmPassword } = form;
 
-    if (!username || !password || !confirmPassword) {
-      return alert("Username, kata sandi, dan konfirmasi harus diisi");
+    if (!username.trim() || !password.trim() || !confirmPassword.trim()) {
+      alert("Username, kata sandi, dan konfirmasi harus diisi");
+      return;
     }
 
     if (password !== confirmPassword) {
@@ -36,7 +37,7 @@ const RegisterForm = () => {
       navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Gagal mendaftar");
+      alert(err.response?.data?.message || "Gagal mendaftar");
     }
   };
 
@@ -76,7 +77,6 @@ const RegisterForm = () => {
             name="username"
             value={form.username}
             onChange={handleChange}
-            required
             autoComplete="Username"
             placeholder="Masukkan username"
             className=" w-full h-7 px-3 py-2 border border-[#E7E3FC3B] rounded-3xl text-white text-[9.24px] 
@@ -99,7 +99,6 @@ const RegisterForm = () => {
               name="password"
               value={form.password}
               onChange={handleChange}
-              required
               autoComplete="current-password"
               placeholder="Masukkan kata sandi"
               className="w-full h-7 px-3 py-2 border border-[#E7E3FC3B] rounded-3xl text-white text-[9.24px] 
@@ -134,7 +133,6 @@ const RegisterForm = () => {
               name="confirmPassword"
               value={form.confirmPassword}
               onChange={handleChange}
-              required
               autoComplete="new-password"
               placeholder="Masukkan kata sandi"
               className="w-full h-7 px-3 py-2 border border-[#E7E3FC3B] rounded-3xl text-white text-[9.24px] 

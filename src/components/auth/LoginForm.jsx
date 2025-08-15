@@ -28,12 +28,8 @@ const LoginForm = () => {
         password: form.password,
       });
 
-      if (res.data.user) {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        navigate("/home/series");
-      } else {
-        alert("Username atau kata sandi anda salah!");
-      }
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      navigate("/home/series");
     } catch (err) {
       console.error(err);
       alert(err.response?.data?.message || "Gagal login");
