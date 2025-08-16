@@ -1,7 +1,7 @@
 import ProfileForm from "../components/content/ProfileForm";
 import posters from "../data/Posters";
 import getTopIndexesByKey from "../utils/getTopIndexesByKey";
-import PortraitCard from "../components/content/PortraitCard";
+import MyListContent from "../components/content/MyListContent";
 
 const MyProfile = () => {
   const topIndexes = getTopIndexesByKey(posters, "like", 5);
@@ -15,14 +15,27 @@ const MyProfile = () => {
       {/* My List Film */}
       <div className="mb-5">
         <h1 className="text-xl font-bold mb-4">Daftar Saya</h1>
-        <div className="flex flex-wrap justify-between gap-4">
+        <div className="flex flex-wrap justify-between gap-4 md:gap-7">
           {posters.map((items, index) => (
-            <PortraitCard
+            <MyListContent
               key={index}
               posters={[items]}
               topIndexes={topIndexes}
             />
           ))}
+
+          <div
+            className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
+            md:min-w-[234px] md:h-[365px] invisible"
+          ></div>
+          <div
+            className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
+            md:min-w-[234px] md:h-[365px] invisible"
+          ></div>
+          <div
+            className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
+            md:min-w-[234px] md:h-[365px] invisible"
+          ></div>
         </div>
       </div>
     </div>

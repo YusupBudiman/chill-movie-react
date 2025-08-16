@@ -3,8 +3,10 @@ import avatar from "../../assets/images/avatar.png";
 import warning from "../../assets/images/warning.png";
 import { MdOutlineUploadFile } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const ProfileForm = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -58,7 +60,7 @@ const ProfileForm = () => {
             <div className="flex justify-end">
               <button
                 className="w-[154px] px-5.5 py-1.5 bg-[#2F3334] font-bold text-xs rounded-full"
-                onClick={() => alert("fitur belum tersedia!")}
+                onClick={() => navigate("/home/premium")}
               >
                 Mulai Berlangganan
               </button>
