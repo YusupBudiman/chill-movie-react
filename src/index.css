@@ -3,6 +3,8 @@
 body {
   font-family: "Lato", sans-serif;
   background: #181a1c;
+  letter-spacing: 0.2px;
+  line-height: 140%;
 }
 
 .scrollbar-hide {

@@ -26,6 +26,7 @@ const posters = [
     imageLandscape: Landscape1,
     rating: 4.5,
     like: 1200,
+    src: "https://www.youtube.com/watch?v=RbIxYm3mKzI",
   },
   {
     nama: "Shazam",

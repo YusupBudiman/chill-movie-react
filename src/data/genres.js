@@ -1,28 +1,18 @@
 export const genres = [
-  [
-    { name: "Aksi", path: "#" },
-    { name: "Petualangan", path: "#" },
-    { name: "Drama", path: "#" },
-    { name: "Romantis", path: "#" },
-  ],
-  [
-    { name: "Horor", path: "#" },
-    { name: "Komedi", path: "#" },
-    { name: "Sci-Fi", path: "#" },
-    { name: "Fantasi", path: "#" },
-  ],
-  [
-    { name: "Thriller", path: "#" },
-    { name: "Dokumenter", path: "#" },
-    { name: "Misteri", path: "#" },
-    { name: "Musikal", path: "#" },
-  ],
-  [
-    { name: "Keluarga", path: "#" },
-    { name: "Kriminal", path: "#" },
-    { name: "Sejarah", path: "#" },
-    { name: "Anime", path: "#" },
-  ],
+  { name: "Aksi", path: "#" },
+  { name: "Anak-anak", path: "#" },
+  { name: "Anime", path: "#" },
+  { name: "Britania", path: "#" },
+  { name: "Drama", path: "#" },
+  { name: "Fantasi Ilmiah & Fantasi", path: "#" },
+  { name: "Kejahatan", path: "#" },
+  { name: "KDrama", path: "#" },
+  { name: "Komedi", path: "#" },
+  { name: "Petualangan", path: "#" },
+  { name: "Perang", path: "#" },
+  { name: "Romantis", path: "#" },
+  { name: "Sains & Alam", path: "#" },
+  { name: "Thriller", path: "#" },
 ];
 
 export const bantuan = [

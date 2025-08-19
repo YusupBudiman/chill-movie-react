@@ -2,7 +2,7 @@ import { GoStarFill } from "react-icons/go";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useRef } from "react";
 
-const PortraitCard = ({ posters, topIndexes }) => {
+const PortraitCard = ({ posters, topIndexes, onCardClick }) => {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -35,7 +35,7 @@ const PortraitCard = ({ posters, topIndexes }) => {
 
       <div
         ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scroll-smooth md:gap-7 scrollbar-hide"
+        className="flex gap-4 overflow-x-auto scroll-smooth md:gap-7 scrollbar-hide cursor-pointer"
       >
         {posters.map((item, index) => (
           <article
@@ -43,6 +43,7 @@ const PortraitCard = ({ posters, topIndexes }) => {
             className="relative min-w-[95.6px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
             md:min-w-[234px] md:h-[365px]"
             style={{ backgroundImage: `url(${item.imagePortrait})` }}
+            onClick={() => onCardClick && onCardClick(item)}
           >
             {/* Label Top 10 */}
             {topIndexes.includes(index) && (

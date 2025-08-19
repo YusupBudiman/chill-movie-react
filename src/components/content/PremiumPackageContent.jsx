@@ -44,19 +44,19 @@ const PremiumPackage = () => {
   ];
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <h1 className="text-xl font-bold mb-6 md:text-[32px] md:mb-[72px]">
+    <div className="flex flex-col justify-center items-center gap-6">
+      <h1 className="text-xl font-bold lg:text-[32px] lg:mb-[72px]">
         Kenapa Harus Berlangganan?
       </h1>
 
-      <div className="w-full flex items-center text-sm flex-wrap ">
+      <div className="w-full flex items-center flex-wrap ">
         {features.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col w-1/2 md:w-1/3 items-center gap-6 md:text-5xl md:gap-10"
+            className="flex flex-col w-1/2 md:w-1/3 items-center gap-6 lg:text-5xl md:gap-10"
           >
             {item.icon}
-            <p className="items-center max-w-[120px] text-center mb-6 md:text-xl md:font-bold md:max-w-[180px]">
+            <p className=" items-center max-w-[180px] h-[92px]  text-center text-[#C1C2C4] lg:text-xl lg:font-bold lg:max-w-[220px] lg:h-[120px]">
               {item.text}
             </p>
           </div>

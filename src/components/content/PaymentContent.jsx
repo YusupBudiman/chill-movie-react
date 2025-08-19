@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { FaCheck } from "react-icons/fa6";
 import Visa from "../../assets/images/card-debit/visa.png";
 import MasterCard from "../../assets/images/card-debit/mastercard.png";
@@ -6,6 +7,12 @@ import AmericanExspress from "../../assets/images/card-debit/american_express.pn
 import Bca from "../../assets/images/card-debit/bca.png";
 
 const PaymentContent = () => {
+  const location = useLocation();
+  const data = location.state;
+
+  const feeAdmin = 3000;
+  const total = data.price + feeAdmin;
+
   return (
     <div className="flex flex-col">
       <h1 className="text-xl font-bold mb-5 lg:text-[32px] lg:mb-10">
@@ -18,26 +25,22 @@ const PaymentContent = () => {
             text-xs lg:w-[236px]"
         >
           <h3 className="w-[111px] px-[20px] py-[10px] bg-[#3D4142] rounded-3xl text-base">
-            Individual
+            {data.title}
           </h3>
           <div className="flex flex-col items-left">
-            <p className="text-sm">Mulai dari Rp49,990/bulan</p>
-            <p>1 Akun</p>
+            <p className="text-sm">
+              Mulai dari Rp{data.price.toLocaleString("en-US")}/bulan
+            </p>
+            <p>{data.user}</p>
           </div>
 
           <div className="flex flex-col gap-2">
-            <span className="flex gap-2 items-center">
-              <FaCheck />
-              Tidak Ada Iklan
-            </span>
-            <span className="flex gap-2 items-center">
-              <FaCheck />
-              Kualitas 720p
-            </span>
-            <span className="flex gap-2 items-center">
-              <FaCheck />
-              Download Konten Pilihan
-            </span>
+            {data.benefit.map((benefit, i) => (
+              <span className="flex gap-2 items-center" key={i}>
+                <FaCheck />
+                {benefit}
+              </span>
+            ))}
           </div>
           <div className="w-full h-[1px] bg-[#E7E3FC3B]"></div>
           <div className="flex flex-col items-center gap-1">
@@ -96,37 +99,43 @@ const PaymentContent = () => {
             </div>
           </div>
 
-          <div>
-            <h2 className="mb-4">Ringkasan Transaksi</h2>
+          <div className="flex flex-col gap-4">
+            <h2>Ringkasan Transaksi</h2>
             <div>
-              <table className="w-full text-[#C1C2C4] mb-4 lg:w-1/2">
+              <table className="w-full text-[#C1C2C4] mb-4 lg:w-[480px] border-separate border-spacing-y-2">
                 <tbody>
-                  <tr className="mb-2">
-                    <th className="text-xs font-light text-left">
-                      Paket Premium Individual
-                    </th>
-                    <td className="text-xs font-light text-right">Rp49,000</td>
-                  </tr>
-
-                  <tr className="mb-2">
-                    <th className="text-xs font-light text-left">
-                      Biaya Admin
-                    </th>
-                    <td className="text-xs font-light text-right">Rp3,000</td>
-                  </tr>
-
-                  <tr>
-                    <th className="text-sm font-light text-left">
-                      Total Pembayaran
-                    </th>
-                    <td className="text-white text-base font-light text-right">
-                      Rp52,000
-                    </td>
-                  </tr>
+                  {[
+                    {
+                      label: `Paket Premium ${data.title}`,
+                      value: data.price.toLocaleString("en-US"),
+                      labelClass: "text-xs font-light text-left",
+                      valueClass: "text-xs font-light text-right",
+                    },
+                    {
+                      label: "Biaya Admin",
+                      value: feeAdmin.toLocaleString("en-US"),
+                      labelClass: "text-xs font-light text-left",
+                      valueClass: "text-xs font-light text-right",
+                    },
+                    {
+                      label: "Total Pembayaran",
+                      value: total.toLocaleString("en-US"),
+                      labelClass: "text-sm font-light text-left",
+                      valueClass: "text-white text-base font-light text-right",
+                    },
+                  ].map((row, i) => (
+                    <tr key={i}>
+                      <th className={row.labelClass}>{row.label}</th>
+                      <td className={row.valueClass}>Rp{row.value}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
 
-              <button className="px-4 py-2 bg-[#09147A] text-sm font-bold rounded-full">
+              <button
+                className="px-4 py-2 bg-[#09147A] text-sm font-bold rounded-full cursor-pointer"
+                onClick={() => alert("fitur belum tersedia")}
+              >
                 Bayar
               </button>
             </div>
