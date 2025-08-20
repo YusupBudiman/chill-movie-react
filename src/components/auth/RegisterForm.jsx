@@ -166,11 +166,11 @@ const RegisterForm = () => {
           </span>
         </div>
 
-        {/* Tombol Aksi */}
+        {/* Btn Register */}
         <div className="flex flex-col gap-1 text-[10px] md:gap-2 md:text-base">
           <button
             type="submit"
-            className="w-full h-7 py-2 px-3 bg-[#3D4142] text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800  transition-all duration-200 ease-in-out
+            className="flex justify-center items-center h-7 py-2 px-3 bg-[#3D4142] text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800  transition-all duration-200 ease-in-out
             md:h-[50px] md:py-3.5 md:px-5 md:rounded-3xl"
           >
             Daftar
@@ -182,7 +182,7 @@ const RegisterForm = () => {
             type="button"
             aria-label="Daftar dengan Google"
             onClick={() => alert("Fitur Google belum tersedia")}
-            className="flex justify-center items-center gap-3 w-full h-7 py-2 px-3 border border-[#E7E3FC3B] bg-transparent text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800  transition-all duration-200 ease-in-out
+            className="flex justify-center items-center gap-3 h-7 py-2 px-3 border border-[#E7E3FC3B] bg-transparent text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800  transition-all duration-200 ease-in-out
             md:h-[50px] md:py-3.5 md:px-5 md:rounded-3xl"
           >
             <FcGoogle className="text-xs" />

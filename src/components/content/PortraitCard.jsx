@@ -46,13 +46,15 @@ const PortraitCard = ({ posters, topIndexes, onCardClick }) => {
             onClick={() => onCardClick && onCardClick(item)}
           >
             {/* Label Top 10 */}
+
             {topIndexes.includes(index) && (
-              <span
-                className="absolute top-0 right-1.5 w-3.5 bg-[#B71F1D] text-white text-center text-[6px] p-0.5  rounded-tr-xs rounded-bl-xs
-              md:right-2.5 md:w-[31px] md:h-12 md:p-1 md:rounded-tr-sm md:rounded-bl-sm md:text-xs"
+              <div
+                className="absolute flex flex-col items-center justify-center leading-2 top-0 right-1 w-3.5 h-[22px] bg-[#B71F1D] text-white text-[6px] p-0.5  rounded-tr-xs rounded-bl-xs
+              md:right-2.5 md:w-[31px] md:h-12 md:p-1 md:rounded-tr-sm md:rounded-bl-sm md:text-xs md:leading-4"
               >
-                TOP 10
-              </span>
+                <span>Top</span>
+                <span>10</span>
+              </div>
             )}
           </article>
         ))}

@@ -25,7 +25,7 @@ const ListPremiumPackage = () => {
   ];
 
   return (
-    <>
+    <div className="flex flex-col justify-center items-center">
       <h1 className="text-xl font-bold md:text-[32px]">Pilih Paketmu</h1>
       <p className="text-sm font-medium mb-10 lg:text-lg">
         Temukan paket sesuai kebutuhanmu!
@@ -76,7 +76,7 @@ const ListPremiumPackage = () => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
