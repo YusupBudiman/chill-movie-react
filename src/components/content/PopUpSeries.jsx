@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { CiCirclePlus } from "react-icons/ci";
 
-const ModalVideo = ({ open, onClose, video, videos = [] }) => {
+const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
   const [showPlayer, setShowPlayer] = useState(false);
 
   // Filter rekomendasi
-  const rekomendasi = videos.filter((v) => v.nama !== video?.nama).slice(0, 3);
+  const rekomendasi = videos.filter((v) => v.nama !== video?.nama);
 
   //scroll body
   useEffect(() => {
@@ -26,7 +26,7 @@ const ModalVideo = ({ open, onClose, video, videos = [] }) => {
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center bg-[#181A1C]/95">
       <div
-        className="relative bg-[#181A1C] w-[90vw] max-h-[80vh] rounded-md lg:max-w-[933px] lg:rounded-2xl overflow-auto
+        className="relative bg-[#181A1C] w-[90vw] max-h-[90vh] rounded-md lg:max-w-[933px] lg:rounded-2xl overflow-auto
        scrollbar-hide drop-shadow-[0_16px_40px_rgba(231,227,252,0.04)]"
       >
         {/* Btn close */}
@@ -124,39 +124,53 @@ const ModalVideo = ({ open, onClose, video, videos = [] }) => {
           {/* More Videos */}
           <div>
             <h2 className="text-white text-xs mb-1 font-bold  lg:text-lg lg:mb-4">
-              Rekomendasi
+              Episode
             </h2>
-            <div className="flex justify-between gap-[10px]  lg:gap-7 ">
-              {rekomendasi.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex z-10 w-1/3 h-auto max-h-[365px] rounded-xs lg:rounded-lg cursor-pointer hover:scale-105 transition bg-[#23272B] overflow-hidden"
-                  onClick={() => {
-                    setShowPlayer(false);
-                    onClose();
-                    setTimeout(() => {
-                      if (typeof window !== "undefined") {
-                        window.dispatchEvent(
-                          new CustomEvent("openModalVideo", { detail: item })
-                        );
-                      }
-                    }, 200);
-                  }}
-                >
-                  <img
-                    src={item.imagePortrait}
-                    alt={item.nama}
-                    className="object-cover w-full"
-                    onClick={() => alert("fitur belum tersedia")}
-                  />
+
+            {rekomendasi.map((item, idx) => (
+              <div
+                key={idx}
+                className="flex w-full  px-2 py-[5px] gap-2 justify-around items-center z-10  overflow-hidden bg-[#424242]"
+                onClick={() => {
+                  setShowPlayer(false);
+                  onClose();
+                  setTimeout(() => {
+                    if (typeof window !== "undefined") {
+                      window.dispatchEvent(
+                        new CustomEvent("openModalVideo", { detail: item })
+                      );
+                    }
+                  }, 200);
+                }}
+              >
+                <div className="w-[30%] flex gap-2 justify-center items-center">
+                  <h3 className="">1</h3>
+                  <div className="flex flex-col ">
+                    <img
+                      className=" w-[58px] md:min-w-[170px] max-h-[33px] md:min-h-[96px] border-b-1 border-[#FF0000]"
+                      src={item.imageLandscape}
+                      alt={item.nama}
+                      onClick={() => alert("fitur belum tersedia")}
+                    />
+                    <div className="flex z-10 "></div>
+                  </div>
                 </div>
-              ))}
-              {rekomendasi.length === 0 && (
-                <div className="text-white text-sm ">
-                  Tidak ada rekomendasi lain.
+
+                <div className="w-[70%] text-[10px] md:text-lg">
+                  <h3 className="font-semibold">{item.nama}</h3>
+                  <p className="font-normal text-[#C1C2C4] line-clamp-1  md:line-clamp-2">
+                    {item.like}
+                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+                  </p>
                 </div>
-              )}
-            </div>
+              </div>
+            ))}
+            {rekomendasi.length === 0 && (
+              <div className="text-white text-sm ">
+                Tidak ada rekomendasi lain.
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -164,4 +178,4 @@ const ModalVideo = ({ open, onClose, video, videos = [] }) => {
   );
 };
 
-export default ModalVideo;
+export default PopUpSeries;
