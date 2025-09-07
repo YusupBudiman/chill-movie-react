@@ -33,7 +33,6 @@ const LoginForm = () => {
       if (loginUser.fulfilled.match(result)) {
         navigate("/home/series");
       }
-      // Error sudah ditangani oleh Redux + toast
     } catch (err) {
       console.error(err);
       toast.error("Terjadi kesalahan, coba lagi");

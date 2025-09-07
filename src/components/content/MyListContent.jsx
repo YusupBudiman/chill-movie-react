@@ -1,27 +1,29 @@
-const MyListContent = ({ posters, topIndexes }) => {
+import React from "react";
+
+const MyListContent = ({ media, topIndexes = [], onCardClick }) => {
+  const item = media[0];
+
   return (
-    <>
-      <div className="flex">
-        {posters.map((item, index) => (
-          <article
-            key={index}
-            className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
-            md:min-w-[234px] md:h-[365px]"
-            style={{ backgroundImage: `url(${item.imagePortrait})` }}
+    <div className="flex">
+      <article
+        className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
+        md:min-w-[234px] md:h-[365px] cursor-pointer"
+        style={{
+          backgroundImage: `url(${item.imgPortrait || item.imagePortrait})`,
+        }}
+        onClick={() => onCardClick && onCardClick(item)}
+      >
+        {/* Label Top 10 */}
+        {topIndexes.includes(0) && (
+          <span
+            className="absolute top-0 right-1.5 w-3.5 bg-[#B71F1D] text-white text-center text-[6px] p-0.5 rounded-tr-xs rounded-bl-xs
+            md:right-2.5 md:w-[31px] md:h-12 md:p-1 md:rounded-tr-sm md:rounded-bl-sm md:text-xs"
           >
-            {/* Label Top 10 */}
-            {topIndexes.includes(index) && (
-              <span
-                className="absolute top-0 right-1.5 w-3.5 bg-[#B71F1D] text-white text-center text-[6px] p-0.5  rounded-tr-xs rounded-bl-xs
-              md:right-2.5 md:w-[31px] md:h-12 md:p-1 md:rounded-tr-sm md:rounded-bl-sm md:text-xs"
-              >
-                TOP 10
-              </span>
-            )}
-          </article>
-        ))}
-      </div>
-    </>
+            TOP 10
+          </span>
+        )}
+      </article>
+    </div>
   );
 };
 

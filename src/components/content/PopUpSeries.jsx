@@ -3,11 +3,10 @@ import { useState, useEffect } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { CiCirclePlus } from "react-icons/ci";
 
-const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
+const PopUpSeries = ({ open, onClose, video }) => {
   const [showPlayer, setShowPlayer] = useState(false);
 
   // Filter rekomendasi
-  const rekomendasi = videos.filter((v) => v.nama !== video?.nama);
 
   //scroll body
   useEffect(() => {
@@ -22,6 +21,10 @@ const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
   }, [open]);
 
   if (!open) return null;
+
+  const totalEpisodes = video?.seasons?.reduce((acc, season) => {
+    return acc + (season.episodes?.length || 0);
+  }, 0);
 
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center bg-[#181A1C]/95">
@@ -46,7 +49,7 @@ const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
           <div
             className="relative w-full h-[190px] flex flex-col justify-end items-center rounded-t-sm md:h-[350px] lg:h-[554px] lg:rounded-t-2xl "
             style={{
-              backgroundImage: `url(${video?.imageLandscape})`,
+              backgroundImage: `url(${video?.imgLandscape})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
@@ -54,7 +57,7 @@ const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
             <div className="absolute inset-0 bg-gradient-to-b from-[#00000000] via-[#0E0F1080] to-[#181A1C]"></div>
             <div className="w-full px-[20px] z-10 mb-[20px] flex flex-col gap-2 lg:mb-10 lg:gap-6 lg:px-20">
               <h2 className="text-base font-bold text-white lg:text-[32px] ">
-                {video?.nama}
+                {video?.title}
               </h2>
               <div className="flex justify-between items-center text-white">
                 <div className="flex gap-2 lg:gap-2.5">
@@ -77,7 +80,7 @@ const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
           // Video Player
           <div className="w-full aspect-video rounded-t-sm lg:rounded-t-2xl overflow-hidden">
             <ReactPlayer
-              src={video?.src}
+              src={video?.video}
               width="100%"
               height="100%"
               controls
@@ -91,13 +94,12 @@ const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
           <div className="flex flex-col justify-between items-center gap-4 lg:gap-10 lg:flex-row">
             <div className="flex flex-col gap-1 flex-1">
               <div className="w-1/2 flex gap-1.5 text-[#C1C2C4] text-[10px] font-semibold lg:gap-4 lg:mb-2 lg:text-base">
-                <span>{video?.rating}</span>
-                <span>{video?.like}</span>
-                <span>{video?.like}</span>
-                <span>{video?.like}</span>
+                <span>{video?.year}</span>
+                <span>{totalEpisodes} episode</span>
+                <span>16+</span>
               </div>
               <p className="text-white text-[10px] lg:text-base">
-                {video?.desc ||
+                {video?.description ||
                   "Pelatih sepak bola perguruan tinggi Amerika Ted Lasso pergi ke London untuk mengelola AFC Richmond, tim sepak bola Liga Utama Inggris yang kesulitan."}
               </p>
             </div>
@@ -105,69 +107,78 @@ const PopUpSeries = ({ open, onClose, video, videos = [] }) => {
             <div className="flex flex-col flex-1 text-[10px] font-base text-white lg:text-base">
               <div className="flex">
                 <h4 className="pr-11.5 lg:pr-17 text-[#C1C2C4]">Cast</h4>
-                <p>
-                  : Chris Pratt, Chukwudi Iwuji, Bradley Cooper, dan lain lain
+                <p className="line-clamp-3">
+                  :{" "}
+                  {video?.cast?.join(", ") ||
+                    "Informasi pemeran tidak tersedia"}
                 </p>
               </div>
 
               <div className="flex">
                 <h4 className="pr-9.5 lg:pr-14 text-[#C1C2C4] ">Genre</h4>
-                <p>: Aksi, Petualangan, Komedi</p>
+                <p>: {video?.genre}</p>
               </div>
               <div className="flex">
                 <h4 className=" pr-1 text-[#C1C2C4]">Pembuat Film</h4>{" "}
-                <p>: James Gunn</p>
+                <p>
+                  : {video?.director || "Informasi pencipta tidak tersedia"}
+                </p>
               </div>
             </div>
           </div>
 
-          {/* More Videos */}
+          {/* Episode */}
           <div>
-            <h2 className="text-white text-xs mb-1 font-bold  lg:text-lg lg:mb-4">
+            <h2 className="text-white text-xs mb-1 font-bold lg:text-lg lg:mb-4">
               Episode
             </h2>
 
-            {rekomendasi.map((item, idx) => (
-              <div
-                key={idx}
-                className="flex w-full  px-2 py-[5px] gap-2 justify-around items-center z-10  overflow-hidden bg-[#424242]"
-                onClick={() => {
-                  setShowPlayer(false);
-                  onClose();
-                  setTimeout(() => {
-                    if (typeof window !== "undefined") {
-                      window.dispatchEvent(
-                        new CustomEvent("openModalVideo", { detail: item })
-                      );
-                    }
-                  }, 200);
-                }}
-              >
-                <div className="w-[30%] flex gap-2 justify-center items-center">
-                  <h3 className="">1</h3>
-                  <div className="flex flex-col ">
-                    <img
-                      className=" w-[58px] md:min-w-[170px] max-h-[33px] md:min-h-[96px] border-b-1 border-[#FF0000]"
-                      src={item.imageLandscape}
-                      alt={item.nama}
-                      onClick={() => alert("fitur belum tersedia")}
-                    />
-                    <div className="flex z-10 "></div>
-                  </div>
-                </div>
+            {video?.seasons?.map((season, sIdx) => (
+              <div key={sIdx} className="mb-4">
+                {season.episodes?.map((ep, eIdx) => (
+                  <div
+                    key={eIdx}
+                    className="flex w-full px-2 py-[5px] gap-2 justify-around items-center z-10 overflow-hidden bg-[#424242]"
+                    onClick={() => {
+                      setShowPlayer(false);
+                      onClose();
+                      setTimeout(() => {
+                        if (typeof window !== "undefined") {
+                          window.dispatchEvent(
+                            new CustomEvent("openModalVideo", { detail: ep })
+                          );
+                        }
+                      }, 200);
+                    }}
+                  >
+                    <div className="w-[30%] flex gap-2 justify-center items-center">
+                      <h3>{ep.episodeNumber}</h3>
+                      <div className="flex flex-col">
+                        <img
+                          className="w-[58px] md:min-w-[170px] max-h-[33px] md:min-h-[96px] border-b-1 border-[#FF0000]"
+                          src={ep.imageLandscape || video.imgLandscape} // fallback image
+                          alt={ep.title}
+                          onClick={() => alert("fitur belum tersedia")}
+                        />
+                      </div>
+                    </div>
 
-                <div className="w-[70%] text-[10px] md:text-lg">
-                  <h3 className="font-semibold">{item.nama}</h3>
-                  <p className="font-normal text-[#C1C2C4] line-clamp-1  md:line-clamp-2">
-                    {item.like}
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                    bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-                  </p>
-                </div>
+                    <div className="w-[70%] text-[10px] md:text-lg">
+                      <h3 className="font-semibold">{ep.title}</h3>
+                      <p className="font-normal text-[#C1C2C4] line-clamp-1 md:line-clamp-2">
+                        {video?.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+                {season.episodes?.length === 0 && (
+                  <p className="text-white">Belum ada episode di season ini</p>
+                )}
               </div>
             ))}
-            {rekomendasi.length === 0 && (
-              <div className="text-white text-sm ">
+
+            {video?.seasons?.length === 0 && (
+              <div className="text-white text-sm">
                 Tidak ada rekomendasi lain.
               </div>
             )}

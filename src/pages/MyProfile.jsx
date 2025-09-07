@@ -1,10 +1,27 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ProfileForm from "../components/content/ProfileForm";
-import posters from "../data/Posters";
-import getTopIndexesByKey from "../utils/getTopIndexesByKey";
 import MyListContent from "../components/content/MyListContent";
+import { fetchMovies, openPopup } from "../store/slices/MovieSlice";
 
 const MyProfile = () => {
-  const topIndexes = getTopIndexesByKey(posters, "like", 5);
+  const dispatch = useDispatch();
+  const { movies, loading } = useSelector((state) => state.movies);
+
+  useEffect(() => {
+    if (!movies.length) {
+      dispatch(fetchMovies());
+    }
+  }, [dispatch, movies.length]);
+
+  const allMedia = movies.filter(
+    (item) => item.type === "movie" || item.type === "series"
+  );
+
+  if (loading) {
+    return <div className="text-white p-4">Loading...</div>;
+  }
+
   return (
     <div className="p-4 mt-15 mb-5 md:px-20 md:mt-24">
       {/* Profile */}
@@ -12,30 +29,22 @@ const MyProfile = () => {
         <ProfileForm />
       </div>
 
-      {/* My List Film */}
+      {/* My List Film & Series */}
       <div className="mb-5">
         <h1 className="text-xl font-bold mb-4">Daftar Saya</h1>
         <div className="flex flex-wrap justify-between gap-4 md:gap-7">
-          {posters.map((items, index) => (
+          {allMedia.map((item, index) => (
             <MyListContent
               key={index}
-              posters={[items]}
-              topIndexes={topIndexes}
+              media={[item]}
+              onCardClick={() => dispatch(openPopup(item))}
             />
           ))}
 
-          <div
-            className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
-            md:min-w-[234px] md:h-[365px] invisible"
-          ></div>
-          <div
-            className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
-            md:min-w-[234px] md:h-[365px] invisible"
-          ></div>
-          <div
-            className="relative min-w-[95px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
-            md:min-w-[234px] md:h-[365px] invisible"
-          ></div>
+          {/* Placeholder invisible cards */}
+          <div className="w-[25%] invisible"></div>
+          <div className="w-[25%] invisible"></div>
+          <div className="w-[25%] invisible"></div>
         </div>
       </div>
     </div>

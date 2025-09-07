@@ -43,7 +43,6 @@ export const deleteMovie = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const res = await api.delete(`/movies/${id}`);
-      // backend returns { id: deleted._id }
       return res.data.id || id;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -57,8 +56,19 @@ const movieSlice = createSlice({
     movies: [],
     loading: false,
     error: null,
+    selectedVideo: null, // untuk popup
+    isOpen: false, // untuk popup
   },
-  reducers: {},
+  reducers: {
+    openPopup: (state, action) => {
+      state.selectedVideo = action.payload;
+      state.isOpen = true;
+    },
+    closePopup: (state) => {
+      state.selectedVideo = null;
+      state.isOpen = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMovies.pending, (state) => {
@@ -72,7 +82,6 @@ const movieSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-
       .addCase(addMovie.fulfilled, (state, action) => {
         state.movies.unshift(action.payload);
       })
@@ -85,5 +94,7 @@ const movieSlice = createSlice({
       });
   },
 });
+
+export const { openPopup, closePopup } = movieSlice.actions;
 
 export default movieSlice.reducer;

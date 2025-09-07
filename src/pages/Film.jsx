@@ -1,73 +1,73 @@
 import LandscapeCard from "../components/content/LandscapeCard";
 import PortraitCard from "../components/content/PortraitCard";
 import Hero from "../components/layout/Hero";
-import posters from "../data/Posters";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { openPopup, closePopup, fetchMovies } from "../store/slices/MovieSlice";
+import { useEffect } from "react";
 import getTopIndexesByKey from "../utils/getTopIndexesByKey";
-const topIndexes = getTopIndexesByKey(posters, "like", 3);
 import PopUpFilm from "../components/content/PopUpFilm";
 
 const Film = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState(null);
+  const dispatch = useDispatch();
+  const { movies, selectedVideo, isOpen } = useSelector(
+    (state) => state.movies
+  );
 
-  const handleCardClick = (video) => {
-    setSelectedVideo(video);
-    setShowModal(true);
-  };
+  useEffect(() => {
+    dispatch(fetchMovies());
+  }, [dispatch]);
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedVideo(null);
-  };
+  const movieList = movies.filter((item) => item.type === "movie");
+  const topIndexes = getTopIndexesByKey(movieList, "like", 3);
+
   return (
     <>
       <PopUpFilm
-        open={showModal}
-        onClose={handleCloseModal}
+        open={isOpen}
+        onClose={() => dispatch(closePopup())}
         video={selectedVideo}
-        videos={posters}
+        videos={movieList}
       />
       <Hero />
 
       <section className="p-4 mt-15 mb-5 md:px-20 md:mt-24">
         <h3 className="text-xl font-bold mb-5">Melanjutkan Tonton Film</h3>
-        <LandscapeCard posters={posters} topIndexes={topIndexes} />
+        <LandscapeCard items={movieList} topIndexes={topIndexes} />
       </section>
 
-      <section className="p-4 mb-5 md:px-20 ">
-        <h3 className="text-xl font-bold mb-5 ">Film Persembahan Chill</h3>
+      <section className="p-4 mb-5 md:px-20">
+        <h3 className="text-xl font-bold mb-5">Film Persembahan Chill</h3>
         <PortraitCard
-          posters={posters}
+          items={movieList}
           topIndexes={topIndexes}
-          onCardClick={handleCardClick}
+          onCardClick={(video) => dispatch(openPopup(video))}
         />
       </section>
 
-      <section className="p-4 mb-5 md:px-20 ">
+      <section className="p-4 mb-5 md:px-20">
         <h3 className="text-xl font-bold mb-5">Top Rating Film Hari ini</h3>
         <PortraitCard
-          posters={posters}
+          items={movieList}
           topIndexes={topIndexes}
-          onCardClick={handleCardClick}
+          onCardClick={(video) => dispatch(openPopup(video))}
         />
       </section>
 
-      <section className="p-4 mb-5 md:px-20 ">
+      <section className="p-4 mb-5 md:px-20">
         <h3 className="text-xl font-bold mb-5">Film Trending</h3>
         <PortraitCard
-          posters={posters}
+          items={movieList}
           topIndexes={topIndexes}
-          onCardClick={handleCardClick}
+          onCardClick={(video) => dispatch(openPopup(video))}
         />
       </section>
 
-      <section className="p-4 mb-5 md:px-20 ">
+      <section className="p-4 mb-5 md:px-20">
         <h3 className="text-xl font-bold mb-5">Rilis Baru</h3>
         <PortraitCard
-          posters={posters}
+          items={movieList}
           topIndexes={topIndexes}
-          onCardClick={handleCardClick}
+          onCardClick={(video) => dispatch(openPopup(video))}
         />
       </section>
     </>

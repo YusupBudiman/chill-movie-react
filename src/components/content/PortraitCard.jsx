@@ -1,8 +1,7 @@
-import { GoStarFill } from "react-icons/go";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useRef } from "react";
 
-const PortraitCard = ({ posters, topIndexes, onCardClick }) => {
+const PortraitCard = ({ items = [], topIndexes = [], onCardClick }) => {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -20,7 +19,7 @@ const PortraitCard = ({ posters, topIndexes, onCardClick }) => {
       {/* Scroll Left */}
       <button
         onClick={() => scroll("left")}
-        className="hidden absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10  border-1 border-[#E7E3FC3B] bg-[#2F3334] hover:bg-[#222224] text-[white] p-2 rounded-full lg:block"
+        className="hidden absolute left-[-1rem] top-1/2 -translate-y-1/2 z-10 border-1 border-[#E7E3FC3B] bg-[#2F3334] hover:bg-[#222224] text-[white] p-2 rounded-full lg:block"
       >
         <FaArrowLeft />
       </button>
@@ -37,19 +36,18 @@ const PortraitCard = ({ posters, topIndexes, onCardClick }) => {
         ref={scrollRef}
         className="flex gap-4 overflow-x-auto scroll-smooth md:gap-7 scrollbar-hide cursor-pointer"
       >
-        {posters.map((item, index) => (
+        {items.map((item, index) => (
           <article
             key={index}
             className="relative min-w-[95.6px] h-[143px] bg-cover bg-center rounded-sm shadow-lg overflow-hidden
             md:min-w-[234px] md:h-[365px]"
-            style={{ backgroundImage: `url(${item.imagePortrait})` }}
+            style={{ backgroundImage: `url(${item.imgPortrait})` }}
             onClick={() => onCardClick && onCardClick(item)}
           >
             {/* Label Top 10 */}
-
             {topIndexes.includes(index) && (
               <div
-                className="absolute flex flex-col items-center justify-center leading-2 top-0 right-1 w-3.5 h-[22px] bg-[#B71F1D] text-white text-[6px] p-0.5  rounded-tr-xs rounded-bl-xs
+                className="absolute flex flex-col items-center justify-center leading-2 top-0 right-1 w-3.5 h-[22px] bg-[#B71F1D] text-white text-[6px] p-0.5 rounded-tr-xs rounded-bl-xs
               md:right-2.5 md:w-[31px] md:h-12 md:p-1 md:rounded-tr-sm md:rounded-bl-sm md:text-xs md:leading-4"
               >
                 <span>Top</span>
