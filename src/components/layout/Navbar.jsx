@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../store/slices/UserSlice";
+
 import Logo from "../../assets/images/logo-chill.png";
 import User from "../../assets/images/avatar.png";
 import { MdKeyboardArrowRight } from "react-icons/md";
@@ -8,11 +11,13 @@ import DropdownMenu from "../content/DropdownMenu";
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
+  // Logout
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
     navigate("/");
   };
 

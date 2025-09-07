@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Logo from "../../assets/images/Logo.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import api from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../store/slices/UserSlice";
+import toast, { Toaster } from "react-hot-toast";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.user);
 
+  const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,27 +27,22 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.username || !form.password) {
-      alert("Username dan password harus diisi");
-      return;
-    }
-
     try {
-      const res = await api.post("/users/login", {
-        username: form.username,
-        password: form.password,
-      });
+      const result = await dispatch(loginUser(form));
 
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      navigate("/home/series");
+      if (loginUser.fulfilled.match(result)) {
+        navigate("/home/series");
+      }
+      // Error sudah ditangani oleh Redux + toast
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Gagal login");
+      toast.error("Terjadi kesalahan, coba lagi");
     }
   };
 
   return (
-    <div className="bg-[rgba(24,26,28,0.84)] text-white p-6 rounded-lg shadow-lg md:p-10">
+    <div className="bg-[rgba(24,26,28,0.84)] text-white p-6 rounded-lg shadow-lg md:p-10 relative">
+      <Toaster position="top-center" reverseOrder={false} />
       {/* Logo & Title */}
       <div className="text-center mb-5 md:mb-[37px]">
         <img
@@ -119,7 +124,7 @@ const LoginForm = () => {
 
           <Link
             to="#"
-            onClick={() => alert("fitur belum tersedia!")}
+            onClick={() => toast("Fitur belum tersedia!")}
             className="font-medium text-white"
           >
             Lupa kata sandi?
@@ -140,7 +145,7 @@ const LoginForm = () => {
 
           <button
             type="button"
-            onClick={() => alert("fitur belum tersedia!")}
+            onClick={() => toast("Fitur belum tersedia!")}
             className="flex justify-center items-center gap-3 h-7 py-2 px-3 border border-[#E7E3FC3B] bg-transparent text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800 transition-all duration-200 ease-in-out
             md:h-[50px] md:py-3.5 md:px-5 md:rounded-3xl"
           >

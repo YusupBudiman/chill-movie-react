@@ -4,9 +4,12 @@ import warning from "../../assets/images/warning.png";
 import { MdOutlineUploadFile } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const ProfileForm = () => {
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -14,25 +17,14 @@ const ProfileForm = () => {
   });
 
   useEffect(() => {
-    const loadUser = () => {
-      const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-        const userData = JSON.parse(storedUser);
-        setForm({
-          username: userData.username || "",
-          email: userData.email || "",
-          password: userData.password || "",
-        });
-      }
-    };
-
-    loadUser();
-    window.addEventListener("storage", loadUser);
-
-    return () => {
-      window.removeEventListener("storage", loadUser);
-    };
-  }, []);
+    if (user) {
+      setForm({
+        username: user.username || "",
+        email: user.email || "",
+        password: "******",
+      });
+    }
+  }, [user]);
 
   // Handle perubahan input
   const handleChange = (e) => {
@@ -137,7 +129,7 @@ const ProfileForm = () => {
                   value={form.password}
                   onChange={handleChange}
                   placeholder="password"
-                  className="text-base font-medium "
+                  className=" text-base font-medium"
                 />
               </div>
               <button>

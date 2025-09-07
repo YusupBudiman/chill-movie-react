@@ -1,20 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../assets/images/Logo.svg";
-import api from "../../api";
+import { registerUser } from "../../store/slices/UserSlice";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.user);
+
   const [form, setForm] = useState({
     username: "",
     password: "",
     confirmPassword: "",
   });
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  useEffect(() => {
+    if (error) toast.error(error);
+  }, [error]);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -24,25 +32,28 @@ const RegisterForm = () => {
     const { username, password, confirmPassword } = form;
 
     if (!username.trim() || !password.trim() || !confirmPassword.trim()) {
-      alert("Username, kata sandi, dan konfirmasi harus diisi");
-      return;
+      return toast.error("Username, kata sandi, dan konfirmasi harus diisi");
     }
 
     if (password !== confirmPassword) {
-      return alert("Kata sandi anda tidak cocok");
+      return toast.error("Kata sandi anda tidak cocok");
     }
+
     try {
-      await api.post("/users/register", { username, password });
-      alert("pendaftaran berhasil!");
-      navigate("/");
+      const resultAction = await dispatch(registerUser({ username, password }));
+      if (registerUser.fulfilled.match(resultAction)) {
+        toast.success(resultAction.payload.message || "Pendaftaran berhasil!");
+        navigate("/");
+      }
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Gagal mendaftar");
+      toast.error("Terjadi kesalahan, coba lagi");
     }
   };
 
   return (
     <div className="bg-[rgba(24,26,28,0.84)] text-white p-6 rounded-lg shadow-lg md:p-10">
+      <Toaster position="top-center" reverseOrder={false} />
       {/* Logo & Title */}
       <div className="text-center mb-5 md:mb-[37px]">
         <img
@@ -56,7 +67,6 @@ const RegisterForm = () => {
         <p className="text-[10px] font-light md:text-base">Selamat datang!</p>
       </div>
 
-      {/* Form Daftar */}
       <form
         onSubmit={handleSubmit}
         name="register-form"
@@ -172,8 +182,9 @@ const RegisterForm = () => {
             type="submit"
             className="flex justify-center items-center h-7 py-2 px-3 bg-[#3D4142] text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800  transition-all duration-200 ease-in-out
             md:h-[50px] md:py-3.5 md:px-5 md:rounded-3xl"
+            disabled={loading}
           >
-            Daftar
+            {loading ? "Memproses..." : "Daftar"}
           </button>
 
           <span className="text-center text-[#9D9EA1]">Atau</span>
@@ -181,7 +192,7 @@ const RegisterForm = () => {
           <button
             type="button"
             aria-label="Daftar dengan Google"
-            onClick={() => alert("Fitur Google belum tersedia")}
+            onClick={() => toast("Fitur Google belum tersedia")}
             className="flex justify-center items-center gap-3 h-7 py-2 px-3 border border-[#E7E3FC3B] bg-transparent text-white font-semibold rounded-2xl hover:bg-gray-600 active:bg-gray-800  transition-all duration-200 ease-in-out
             md:h-[50px] md:py-3.5 md:px-5 md:rounded-3xl"
           >
